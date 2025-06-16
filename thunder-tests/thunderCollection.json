@@ -1,0 +1,31 @@
+[
+  {
+    "_id": "c5b9e070-fc22-44c0-af69-7aceac9fda6d",
+    "colName": "api-end-point",
+    "created": "2025-06-16T11:38:11.235Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "e4427c3d-179a-451f-99ff-4156b868bd2e",
+        "name": "auth",
+        "containerId": "",
+        "created": "2025-06-16T11:43:34.137Z",
+        "sortNum": 10000
+      },
+      {
+        "_id": "56779f72-78ed-4083-adff-14c47fc07445",
+        "name": "users",
+        "containerId": "",
+        "created": "2025-06-16T11:45:49.079Z",
+        "sortNum": 20000
+      },
+      {
+        "_id": "31418b73-e60c-4407-8fc3-680ee001e011",
+        "name": "chat",
+        "containerId": "",
+        "created": "2025-06-16T11:49:42.111Z",
+        "sortNum": 30000
+      }
+    ]
+  }
+]

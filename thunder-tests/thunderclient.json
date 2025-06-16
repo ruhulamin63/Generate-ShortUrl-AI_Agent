@@ -1,0 +1,157 @@
+[
+  {
+    "_id": "2545ba95-fba7-4916-85f6-3408927faf59",
+    "colId": "c5b9e070-fc22-44c0-af69-7aceac9fda6d",
+    "containerId": "e4427c3d-179a-451f-99ff-4156b868bd2e",
+    "name": "register",
+    "url": "{{baseUrl}}/register",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2025-06-16T11:38:34.557Z",
+    "modified": "2025-06-16T11:43:36.177Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"test@example.com\",\r\n    \"password\": \"password\",\r\n    \"password_confirmation\": \"password\",\r\n    \"username\": \"johndoe123\"\r\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "538065b5-a749-4356-8fb6-886361d12639",
+    "colId": "c5b9e070-fc22-44c0-af69-7aceac9fda6d",
+    "containerId": "e4427c3d-179a-451f-99ff-4156b868bd2e",
+    "name": "login",
+    "url": "{{baseUrl}}/login",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2025-06-16T11:43:55.940Z",
+    "modified": "2025-06-16T11:44:19.190Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "40c85ad5-36f2-4aa5-ba8c-965066c7a26a",
+    "colId": "c5b9e070-fc22-44c0-af69-7aceac9fda6d",
+    "containerId": "56779f72-78ed-4083-adff-14c47fc07445",
+    "name": "list",
+    "url": "{{baseUrl}}/user/show",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2025-06-16T11:45:55.489Z",
+    "modified": "2025-06-16T11:46:40.113Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{token}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "7072f8e5-7ca5-4eee-a77f-0d0b296a7bda",
+    "colId": "c5b9e070-fc22-44c0-af69-7aceac9fda6d",
+    "containerId": "31418b73-e60c-4407-8fc3-680ee001e011",
+    "name": "chat",
+    "url": "{{baseUrl}}/chat/send",
+    "method": "POST",
+    "sortNum": 25000,
+    "created": "2025-06-16T11:49:45.980Z",
+    "modified": "2025-06-16T12:19:07.079Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"conversation_id\": \"019778ad-062c-71d0-9f3e-694e25ea61b0\",\n    \"message\": \"Yes,can you help me?\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{token}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "35ba1a07-a8b3-479c-98b1-75e9b752d866",
+    "colId": "c5b9e070-fc22-44c0-af69-7aceac9fda6d",
+    "containerId": "31418b73-e60c-4407-8fc3-680ee001e011",
+    "name": "conversation",
+    "url": "{{baseUrl}}/conversation",
+    "method": "POST",
+    "sortNum": 15000,
+    "created": "2025-06-16T11:50:49.528Z",
+    "modified": "2025-06-16T11:52:31.296Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"title\": \"This is test title\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{token}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "cd0d42a2-5b6c-4837-83f5-024329ce439e",
+    "colId": "c5b9e070-fc22-44c0-af69-7aceac9fda6d",
+    "containerId": "31418b73-e60c-4407-8fc3-680ee001e011",
+    "name": "conversation/list",
+    "url": "{{baseUrl}}/conversation/list",
+    "method": "GET",
+    "sortNum": 7500,
+    "created": "2025-06-16T11:53:19.169Z",
+    "modified": "2025-06-16T11:54:07.320Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{token}}"
+    },
+    "tests": []
+  }
+]

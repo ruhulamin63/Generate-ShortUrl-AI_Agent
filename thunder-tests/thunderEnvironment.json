@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "c4336b6e-8be6-46a0-9e58-43d572e4ba51",
+    "name": "local",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2025-06-16T11:39:19.175Z",
+    "modified": "2025-06-16T11:39:19.175Z",
+    "data": [
+      {
+        "name": "baseUrl",
+        "value": "http://127.0.0.1:8000/api"
+      },
+      {
+        "name": "token",
+        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMTk3Nzg4Yy03N2E2LTcxNzMtYTg5Ni1iN2FmMzhlYjVkMjUiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzUwMDc0MjU5LCJleHAiOjE3NTAwNzc4NTksImp0aSI6IjcxMDYzZDI5M2Q4YWFmNzlkZDFlNTViOTA4ZDU0M2YzIn0.RKBTo0VBtFG1SuHl4CNRKPPk62qPDQCK1V_mln_7YIY"
+      }
+    ]
+  }
+]
