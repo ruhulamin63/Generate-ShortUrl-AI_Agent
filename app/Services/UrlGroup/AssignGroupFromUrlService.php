@@ -11,8 +11,8 @@ class AssignGroupFromUrlService{
     use UrlUtilsTrait;
     public function execute(string $groupId, string $shortenedUrl, string $userId): void{
         $group = $this->findGroupById($userId, $groupId);
-        
         $url = $this->findUrlByUserIdAndShortenedUrl($userId, $shortenedUrl);
+        
         if (!$url) {
             throw new UrlNotFoundException();
         }

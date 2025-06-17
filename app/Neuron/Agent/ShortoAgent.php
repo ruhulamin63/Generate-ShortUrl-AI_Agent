@@ -51,7 +51,7 @@ class ShortoAgent extends Agent
     public function chatHistory(): DatabaseChatHistory
     {
         $databaseChatHistory = new DatabaseChatHistory($this->conversation);
-      //  $databaseChatHistory->c;
+        //  $databaseChatHistory->c;
         return $databaseChatHistory;
     }
 
@@ -59,7 +59,7 @@ class ShortoAgent extends Agent
     {
         return new SystemPrompt(
             background: [
-                'Eres Shorto, a virtual assistant specialized in URL management for a link shortening application. You help users create, organize, edit, and retrieve URLs and URL groups. You can also perform web searches and generate shortcodes based on the content found.',
+                'Short Url, a virtual assistant specialized in URL management for a link shortening application. You help users create, organize, edit, and retrieve URLs and URL groups. You can also perform web searches and generate shortcodes based on the content found.',
                 'Your goal is to provide clear, helpful, and accurate assistance within the context of URL management. You should only answer questions related to shortening URLs, creating groups, displaying user information, editing links, organizing collections, and generating shortcodes from web content.',
                 'You must refer to the user by their username: ' . $this->conversation->user->username . ' and not by their real name.',
             ],
@@ -84,118 +84,117 @@ class ShortoAgent extends Agent
         return [
             Tool::make(
                 'shorten_url',
-                'Acorta una URL larga y devuelve la URL acortada.',
-            )->addProperty(
-                new ToolProperty(
-                    'originalUrl',
-                    'string',
-                    'URL original que deseas acortar.',
-                    true
-                )
-            )->addProperty(
-                new ToolProperty(
-                    'customAlias',
-                    'string',
-                    'Alias personalizado para la URL. (opcional)',
-                    false
-                )
-            )->addProperty(
-                new ToolProperty(
-                    'description',
-                    'string',
-                    'Descripción de la URL. (opcional)',
-                    false
-                )
-            )->addProperty(
-                new ToolProperty(
-                    'password',
-                    'string',
-                    'Contraseña para acceder a la URL. (opcional)',
-                    false
-                )
-            
-            )->addProperty(
-                new ToolProperty(
-                    'shortenedUrl',
-                    'string',
-                    'URL acortada. (opcional)',
-                    false
-                )
-            )
-            ->setCallable(
-                new ShortenUrlTool(app(ShortenUrlService::class))
-            ),
-            Tool::make(
-                'sear_ch_url',
-                'Busca una URL acortada en la base de datos y devuelve la URL original.',
-            )->addProperty(
-                new ToolProperty(
-                    'shortened_url',
-                    'string',
-                    'La URL acortada que deseas buscar.',
-                    true
-                )
-            )->setCallable(
-                new SearchUrlByShortenedUrlTool()
-            ),
-            Tool::make(
-                'update_url',
-                'Actualiza la URL acortada en la base de datos. Los campos opcionales que no se envien no se actualizaran. Si no se envia el nuevo shortcode, se mantendra el mismo.',
+                'Shortens a long URL and returns the shortened version.'
             )->addProperty(
                     new ToolProperty(
-                        'shortenedUrl',
+                        'originalUrl',
                         'string',
-                        'La URL acortada que deseas actualizar.',
+                        'The original URL you want to shorten.',
                         true
                     )
-                )
-                ->addProperty(
+                )->addProperty(
                     new ToolProperty(
                         'customAlias',
                         'string',
-                        'Alias personalizado para la URL. (opcional)',
+                        'Custom alias for the URL (optional).',
                         false
                     )
                 )->addProperty(
                     new ToolProperty(
                         'description',
                         'string',
-                        'Descripción de la URL. (opcional)',
+                        'Description of the URL (optional).',
                         false
                     )
                 )->addProperty(
                     new ToolProperty(
                         'password',
                         'string',
-                        'Contraseña para acceder a la URL. (opcional)',
+                        'Password to access the URL (optional).',
+                        false
+                    )
+                )->addProperty(
+                    new ToolProperty(
+                        'shortenedUrl',
+                        'string',
+                        'Shortened URL (optional).',
+                        false
+                    )
+                )->setCallable(
+                    new ShortenUrlTool(app(ShortenUrlService::class))
+                ),
+
+            Tool::make(
+                'sear_ch_url',
+                'Searches for a shortened URL in the database and returns the original URL.',
+            )->addProperty(
+                    new ToolProperty(
+                        'shortened_url',
+                        'string',
+                        'The shortened URL you want to look up.',
+                        true
+                    )
+                )->setCallable(
+                    new SearchUrlByShortenedUrlTool()
+                ),
+
+            Tool::make(
+                'update_url',
+                'Updates a shortened URL in the database. Optional fields that are not sent will not be updated. If no new shortcode is provided, the current one will be retained.',
+            )->addProperty(
+                    new ToolProperty(
+                        'shortenedUrl',
+                        'string',
+                        'The shortened URL you want to update.',
+                        true
+                    )
+                )->addProperty(
+                    new ToolProperty(
+                        'customAlias',
+                        'string',
+                        'Custom alias for the URL (optional).',
+                        false
+                    )
+                )->addProperty(
+                    new ToolProperty(
+                        'description',
+                        'string',
+                        'Description of the URL (optional).',
+                        false
+                    )
+                )->addProperty(
+                    new ToolProperty(
+                        'password',
+                        'string',
+                        'Password to access the URL (optional).',
                         false
                     )
                 )->addProperty(
                     new ToolProperty(
                         'newShortenedUrl',
                         'string',
-                        'Nueva URL acortada. (opcional)',
+                        'New shortened URL (optional).',
                         false
                     )
                 )->addProperty(
                     new ToolProperty(
                         'originalUrl',
                         'string',
-                        'Nueva URL original. (opcional)',
+                        'New original URL (optional).',
                         false
                     )
                 )->addProperty(
                     new ToolProperty(
                         'groupId',
                         'string',
-                        'ID del grupo al que deseas agregar la URL. (opcional)',
+                        'ID of the group you want to assign the URL to (optional).',
                         false
                     )
                 )->addProperty(
                     new ToolProperty(
                         'isActive',
                         'boolean',
-                        'Estado de la URL (activa/inactiva). (opcional)',
+                        'Status of the URL (active/inactive) (optional).',
                         false
                     )
                 )->setCallable(
@@ -204,134 +203,129 @@ class ShortoAgent extends Agent
 
             Tool::make(
                 'delete_url',
-                'Elimina una URL acortada de la base de datos.',
+                'Deletes a shortened URL from the database.',
             )->addProperty(
-                new ToolProperty(
-                    'shortenedUrl',
-                    'string',
-                    'La URL acortada que deseas eliminar.',
-                    true
-                )
-            )->setCallable(
-                new DeleteUrlTool(app(DeleteUrlByShortCodeService::class))
-            ),
-
+                    new ToolProperty(
+                        'shortenedUrl',
+                        'string',
+                        'The shortened URL you want to delete.',
+                        true
+                    )
+                )->setCallable(
+                    new DeleteUrlTool(app(DeleteUrlByShortCodeService::class))
+                ),
 
             Tool::make(
                 'list_all_urls_by_user',
-                'Lista todas las URL acortadas por el usuario logeado.',
+                'Lists all shortened URLs created by the logged-in user.',
             )->setCallable(
-                new ListAllUrlByUser(app(ListAllUrlByUserService::class))
-            ),
-
+                    new ListAllUrlByUser(app(ListAllUrlByUserService::class))
+                ),
 
             Tool::make(
                 'create_group',
-                'Crea un grupo de URLs.',
+                'Creates a URL group.',
             )->addProperty(
-                new ToolProperty(
-                    'groupName',
-                    'string',
-                    'Nombre del grupo.',
-                    true
-                )
-            )->addProperty(
-                new ToolProperty(
-                    'description',
-                    'string',
-                    'Descripción del grupo. (opcional)',
-                    false
-                )
-            )->setCallable(
-                new CreateGroupTool(app(CreateUrlGroupService::class))
-            ),
+                    new ToolProperty(
+                        'groupName',
+                        'string',
+                        'Name of the group.',
+                        true
+                    )
+                )->addProperty(
+                    new ToolProperty(
+                        'description',
+                        'string',
+                        'Description of the group (optional).',
+                        false
+                    )
+                )->setCallable(
+                    new CreateGroupTool(app(CreateUrlGroupService::class))
+                ),
 
             Tool::make(
                 'edit_group',
-                'Edita un grupo de URLs.',
+                'Edits an existing URL group.',
             )->addProperty(
-                new ToolProperty(
-                    'groupId',
-                    'string',
-                    'ID del grupo.',
-                    true
-                )
+                    new ToolProperty(
+                        'groupId',
+                        'string',
+                        'ID of the group.',
+                        true
+                    )
                 )->addProperty(
                     new ToolProperty(
                         'groupName',
                         'string',
-                        'Nombre del grupo. (opcional)',
+                        'New name for the group (optional).',
                         false
                     )
                 )->addProperty(
                     new ToolProperty(
                         'description',
                         'string',
-                        'Descripción del grupo. (opcional)',
+                        'New description for the group (optional).',
                         false
                     )
                 )->setCallable(
                     new \App\Neuron\Tools\Group\EditGroupTool(app(UpdateGroupService::class))
                 ),
 
-
             Tool::make(
                 'list_all_groups',
-                'Lista todos los grupos de URLs del usuario logeado.',
+                'Lists all URL groups belonging to the logged-in user.',
             )->setCallable(
-                new ListAllgroupsByUserTool()
-            ),
-            //Grupos de URLs
+                    new ListAllgroupsByUserTool()
+                ),
+
             Tool::make(
                 'list_all_groups_urls',
-                'Lista todos los grupos de URLs del usuario logeado y las URLs que contiene cada grupo.',
+                'Lists all URL groups of the logged-in user and the URLs contained in each group.',
             )->setCallable(
-                new ListGroupsWithUrlTool(app(ListGroupsWithUrlsService::class)
-            )
-            ) 
-             ,Tool::make(
+                    new ListGroupsWithUrlTool(app(ListGroupsWithUrlsService::class))
+                ),
+
+            Tool::make(
                 'add_url_to_group',
-                'Agrega una URL a un grupo de URLs.',
-                    )->addProperty(
-                new ToolProperty(
-                    'groupId',
-                    'string',
-                    'ID del grupo al que deseas agregar la URL.',
-                    true
-                )
-                    )->addProperty(
-                new ToolProperty(
-                    'shortenedUrl',
-                    'string',
-                    'La URL acortada que deseas agregar al grupo.',
-                    true
-                )
-                    )->setCallable(
-                new AssignGroupFromUrlTool(app(AssignGroupFromUrlService::class))
-                    ),
+                'Adds a URL to a group.',
+            )->addProperty(
+                    new ToolProperty(
+                        'groupId',
+                        'string',
+                        'ID of the group you want to add the URL to.',
+                        true
+                    )
+                )->addProperty(
+                    new ToolProperty(
+                        'shortenedUrl',
+                        'string',
+                        'The shortened URL you want to add to the group.',
+                        true
+                    )
+                )->setCallable(
+                    new AssignGroupFromUrlTool(app(AssignGroupFromUrlService::class))
+                ),
 
-                    Tool::make(
+            Tool::make(
                 'delete_url_from_group',
-                'Elimina una URL de un grupo de URLs.',
-                    )->addProperty(
-                new ToolProperty(
-                    'groupId',
-                    'string',
-                    'ID del grupo al que deseas agregar la URL.',
-                    true
-                )
-                    )->addProperty(
-                new ToolProperty(
-                    'shortenedUrl',
-                    'string',
-                    'La URL acortada que deseas agregar al grupo.',
-                    true
-                )
-                    )->setCallable(
-                new UnAssignGroupFromUrlTool(app(UnassignGroupFromUrlService::class))
-                    ),
-            
-
+                'Removes a URL from a group.',
+            )->addProperty(
+                    new ToolProperty(
+                        'groupId',
+                        'string',
+                        'ID of the group from which you want to remove the URL.',
+                        true
+                    )
+                )->addProperty(
+                    new ToolProperty(
+                        'shortenedUrl',
+                        'string',
+                        'The shortened URL you want to remove from the group.',
+                        true
+                    )
+                )->setCallable(
+                    new UnAssignGroupFromUrlTool(app(UnassignGroupFromUrlService::class))
+                ),
 
             // Tool::make(
             //     'show_user_info',

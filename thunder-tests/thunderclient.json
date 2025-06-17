@@ -84,7 +84,7 @@
     "method": "POST",
     "sortNum": 25000,
     "created": "2025-06-16T11:49:45.980Z",
-    "modified": "2025-06-16T12:19:07.079Z",
+    "modified": "2025-06-17T06:00:57.484Z",
     "headers": [
       {
         "name": "Accept",
@@ -94,7 +94,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"conversation_id\": \"019778ad-062c-71d0-9f3e-694e25ea61b0\",\n    \"message\": \"Yes,can you help me?\"\n}",
+      "raw": "{\n    \"conversation_id\": \"01977894-f9ae-72eb-a979-313e2c9bbfa6\",\n    \"message\": \"Yes, I want to AL huda global website pleae?\"\n}",
       "form": []
     },
     "auth": {
@@ -148,6 +148,136 @@
       }
     ],
     "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{token}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "dffc23e0-ca04-4413-9c01-1e5a865855f2",
+    "colId": "c5b9e070-fc22-44c0-af69-7aceac9fda6d",
+    "containerId": "43535e12-dc0f-478f-8e9f-ee4c25068dfc",
+    "name": "group",
+    "url": "{{baseUrl}}/group",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2025-06-17T05:05:20.249Z",
+    "modified": "2025-06-17T05:06:39.815Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\": \"Zero\",\n    \"description\": \"This is my test group\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{token}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "ca9bf452-65d0-4700-9bc3-135a8d2f9652",
+    "colId": "c5b9e070-fc22-44c0-af69-7aceac9fda6d",
+    "containerId": "67658492-60d7-4340-a385-5a024faa3f7e",
+    "name": "url/shorten",
+    "url": "{{baseUrl}}/url/shorten",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2025-06-17T05:07:59.803Z",
+    "modified": "2025-06-17T05:18:30.033Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"original_url\": \"https://alhuda-global.com/products/category/mens\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{token}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "fa2c6754-ec31-4c61-9172-c2e3c66d066d",
+    "colId": "c5b9e070-fc22-44c0-af69-7aceac9fda6d",
+    "containerId": "67658492-60d7-4340-a385-5a024faa3f7e",
+    "name": "url/list",
+    "url": "{{baseUrl}}/url/list",
+    "method": "GET",
+    "sortNum": 5000,
+    "created": "2025-06-17T05:11:05.675Z",
+    "modified": "2025-06-17T05:11:24.843Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{token}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "2acaf90a-676a-4e2f-90a4-ffc27313479c",
+    "colId": "c5b9e070-fc22-44c0-af69-7aceac9fda6d",
+    "containerId": "c4e45c29-59b0-4a8b-9cbf-6bfa2c5ceb14",
+    "name": "group/list",
+    "url": "{{baseUrl}}/group/list",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2025-06-17T05:11:59.469Z",
+    "modified": "2025-06-17T05:12:58.131Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{token}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "20b9a875-6c39-4a0d-b229-3dae28f3d802",
+    "colId": "c5b9e070-fc22-44c0-af69-7aceac9fda6d",
+    "containerId": "c4e45c29-59b0-4a8b-9cbf-6bfa2c5ceb14",
+    "name": "group/assign",
+    "url": "{{baseUrl}}/group/assign",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2025-06-17T05:12:35.827Z",
+    "modified": "2025-06-17T05:22:51.378Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"url_id\": \"01977c53-187c-70c4-b248-741771eca0b5\",\n    \"group_id\": \"01977c48-5306-7213-9e95-c64f6447db22\"\n}",
+      "form": []
+    },
     "auth": {
       "type": "bearer",
       "bearer": "{{token}}"
