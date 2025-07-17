@@ -26,6 +26,7 @@ class RedirectUrlService
             throw new UrlPasswordInvalidException();
         }
         $this->clickService->createClick($url->id, $ipAddress, $userAgent, $referrer);
+        
         return $url->original_url;
     }
 }

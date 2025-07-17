@@ -17,26 +17,25 @@ class ClickService{
             'referrer' => $referrer,
             'country' => $data['country'],
             'region' => $data['region'],
-           
         ]);
     }
 
     private function track(string $ipAddress)
     {
         $ip = $ipAddress;
-    $location = Http::get("http://ip-api.com/json/24.48.0.1");
+        $location = Http::get("http://ip-api.com/json/24.48.0.1");
 
-    $country = $location['country'] ?? null;
-    $city = $location['regionName'] ?? null;
-    
-    $latitude = $location['lat'] ?? null;
-    $longitude = $location['lon'] ?? null;
-    return [
-        'country' => $country,
-        'region' => $city,
-        'latitude' => $latitude,
-        'longitude' => $longitude,
-    ];
-
+        $country = $location['country'] ?? null;
+        $city = $location['regionName'] ?? null;
+        
+        $latitude = $location['lat'] ?? null;
+        $longitude = $location['lon'] ?? null;
+        
+        return [
+            'country' => $country,
+            'region' => $city,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+        ];
     }
 }

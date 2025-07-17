@@ -8,7 +8,7 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2025-06-16T11:38:34.557Z",
-    "modified": "2025-06-16T11:43:36.177Z",
+    "modified": "2025-07-17T12:16:13.864Z",
     "headers": [
       {
         "name": "Accept",
@@ -18,7 +18,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"test@example.com\",\r\n    \"password\": \"password\",\r\n    \"password_confirmation\": \"password\",\r\n    \"username\": \"johndoe123\"\r\n}",
+      "raw": "{\n    \"name\": \"Ruhul Amin\",\n    \"email\": \"test@example.com\",\n    \"password\": \"password\",\n    \"password_confirmation\": \"password\",\n    \"username\": \"ruhul123\"\n}",
       "form": []
     },
     "tests": []
@@ -84,7 +84,7 @@
     "method": "POST",
     "sortNum": 25000,
     "created": "2025-06-16T11:49:45.980Z",
-    "modified": "2025-06-17T06:00:57.484Z",
+    "modified": "2025-07-17T12:21:50.283Z",
     "headers": [
       {
         "name": "Accept",
@@ -94,7 +94,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"conversation_id\": \"01977894-f9ae-72eb-a979-313e2c9bbfa6\",\n    \"message\": \"Yes, I want to AL huda global website pleae?\"\n}",
+      "raw": "{\n    \"conversation_id\": \"01981851-b3b4-7014-bc55-e006079821a7\",\n    \"message\": \"Please give me alhuda-global.com company url?\"\n}",
       "form": []
     },
     "auth": {
@@ -112,7 +112,7 @@
     "method": "POST",
     "sortNum": 15000,
     "created": "2025-06-16T11:50:49.528Z",
-    "modified": "2025-06-16T11:52:31.296Z",
+    "modified": "2025-07-17T12:17:43.134Z",
     "headers": [
       {
         "name": "Accept",
@@ -122,7 +122,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"title\": \"This is test title\"\n}",
+      "raw": "{\n    \"title\": \"Generated short url\"\n}",
       "form": []
     },
     "auth": {
@@ -263,9 +263,9 @@
     "name": "group/assign",
     "url": "{{baseUrl}}/group/assign",
     "method": "POST",
-    "sortNum": 20000,
+    "sortNum": 5000,
     "created": "2025-06-17T05:12:35.827Z",
-    "modified": "2025-06-17T05:22:51.378Z",
+    "modified": "2025-07-17T10:51:45.089Z",
     "headers": [
       {
         "name": "Accept",
@@ -275,13 +275,32 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"url_id\": \"01977c53-187c-70c4-b248-741771eca0b5\",\n    \"group_id\": \"01977c48-5306-7213-9e95-c64f6447db22\"\n}",
+      "raw": "{\n    \"url_id\": \"019817fe-19e4-73d4-9524-a49c6c7a8fb6\",\n    \"group_id\": \"019817fc-981d-7039-b5a3-1aaa0bb8639d\"\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
       "bearer": "{{token}}"
     },
+    "tests": []
+  },
+  {
+    "_id": "6c755b4a-29f1-45c4-996f-078e2847b0a3",
+    "colId": "c5b9e070-fc22-44c0-af69-7aceac9fda6d",
+    "containerId": "31418b73-e60c-4407-8fc3-680ee001e011",
+    "name": "short-url",
+    "url": "{{baseUrl}}/2BZ-pb",
+    "method": "GET",
+    "sortNum": 35000,
+    "created": "2025-07-17T11:31:07.757Z",
+    "modified": "2025-07-17T12:07:12.675Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
     "tests": []
   }
 ]

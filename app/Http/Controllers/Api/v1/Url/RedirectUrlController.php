@@ -14,18 +14,14 @@ class RedirectUrlController extends Controller
     public function __construct(private RedirectUrlService $redirectUrlService){}
     public function __invoke(Request $request)
     {
-       
-             $shortUrl = $request->route('shortUrl');
-              try{
-        $url = $this->redirectUrlService->getOriginalUrl($shortUrl,$request->password ?? null,$request->ip(),$request->userAgent(),'$referrer');
+        $shortUrl = $request->route('shortUrl');
+        try {
+            $url = $this->redirectUrlService->getOriginalUrl($shortUrl, $request->password ?? null, $request->ip(), $request->userAgent(), '$referrer');
 
-      
             return redirect()->away($url);
-        
         }
         catch (UrlPasswordInvalidException | UrlNotFoundException $e){
             throw new HttpResponseException(response()->json(['message' => $e->getMessage()], $e->getCode()));
         }
-       
     }
 }

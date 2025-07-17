@@ -54,9 +54,8 @@ Route::middleware(['check.blocked.ip','throttle:global','jwt.auth','check.redis.
     Route::post('/conversation', ConversationController::class)->name('conversation.create');
     Route::delete('/conversation', DeleteConversationController::class)->name('conversation.delete');
     Route::get('/conversation/list', ListConvertsarionController::class)->name('conversation.list');
-
-
 });
-    Route::post('/{shortUrl}', RedirectUrlController::class)->name('url.redirect');
+
+Route::get('/{shortUrl}', RedirectUrlController::class)->name('url.redirect');
 
  
