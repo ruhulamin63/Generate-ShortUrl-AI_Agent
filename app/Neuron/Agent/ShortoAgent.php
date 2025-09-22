@@ -95,28 +95,28 @@ class ShortoAgent extends Agent
                 new ToolProperty(
                     'customAlias',
                     'string',
-                    'Custom alias for the URL. (optional)',
+                    'Custom alias for the URL - optional',
                     false
                 )
             )->addProperty(
                 new ToolProperty(
                     'description',
                     'string',
-                    'Description of the URL. (optional)',
+                    'Description of the URL - optional',
                     false
                 )
             )->addProperty(
                 new ToolProperty(
-                    'password',
+                    'accessPassword',
                     'string',
-                    'Password to access the URL. (optional)',
+                    'Access password for the URL - optional',
                     false
                 )
             )->addProperty(
                 new ToolProperty(
                     'shortenedUrl',
                     'string',
-                    'Shortened URL. (optional)',
+                    'Shortened URL - optional',
                     false
                 )
             )
@@ -125,7 +125,7 @@ class ShortoAgent extends Agent
             ),
 
             Tool::make(
-                'sear_ch_url',
+                'search_url',
                 'Searches for a shortened URL in the database and returns the original URL.',
             )->addProperty(
                 new ToolProperty(
@@ -153,49 +153,49 @@ class ShortoAgent extends Agent
                     new ToolProperty(
                         'customAlias',
                         'string',
-                        'Custom alias for the URL. (optional)',
+                        'Custom alias for the URL - optional',
                         false
                     )
                 )->addProperty(
                     new ToolProperty(
                         'description',
                         'string',
-                        'Description of the URL. (optional)',
+                        'Description of the URL - optional',
                         false
                     )
                 )->addProperty(
                     new ToolProperty(
-                        'password',
+                        'accessPassword',
                         'string',
-                        'Password to access the URL. (optional)',
+                        'Access password for the URL - optional',
                         false
                     )
                 )->addProperty(
                     new ToolProperty(
                         'newShortenedUrl',
                         'string',
-                        'New shortened URL. (optional)',
+                        'New shortened URL - optional',
                         false
                     )
                 )->addProperty(
                     new ToolProperty(
                         'originalUrl',
                         'string',
-                        'New original URL. (optional)',
+                        'New original URL - optional',
                         false
                     )
                 )->addProperty(
                     new ToolProperty(
                         'groupId',
                         'string',
-                        'ID of the group you want to add the URL to. (optional)',
+                        'ID of the group to add the URL to - optional',
                         false
                     )
                 )->addProperty(
                     new ToolProperty(
                         'isActive',
                         'boolean',
-                        'URL status (active/inactive). (optional)',
+                        'URL status active or inactive - optional',
                         false
                     )
                 )->setCallable(
@@ -239,7 +239,7 @@ class ShortoAgent extends Agent
                 new ToolProperty(
                     'description',
                     'string',
-                    'Group description. (optional)',
+                    'Group description - optional',
                     false
                 )
             )->setCallable(
@@ -260,14 +260,14 @@ class ShortoAgent extends Agent
                     new ToolProperty(
                         'groupName',
                         'string',
-                        'Group name. (optional)',
+                        'Group name - optional',
                         false
                     )
                 )->addProperty(
                     new ToolProperty(
                         'description',
                         'string',
-                        'Group description. (optional)',
+                        'Group description - optional',
                         false
                     )
                 )->setCallable(
@@ -342,15 +342,142 @@ class ShortoAgent extends Agent
             ->setCallable(
                 new UserShowUserInfoTool()
             ),
+
+            // URL Content Analysis Tool
+            Tool::make(
+                'analyze_url_content',
+                'Analyzes URL content using DuckDuckGo search and provides recommendations for shortening.',
+            )->addProperty(
+                new ToolProperty(
+                    'originalUrl',
+                    'string',
+                    'The original URL to analyze.',
+                    true
+                )
+            )->setCallable(
+                new \App\Neuron\Tools\Url\AnalyzeUrlContentTool()
+            ),
+            
+            // Custom DuckDuckGo API tool implementation
+            // This replaces the problematic MCP connector that was causing process termination
+            Tool::make(
+                'duckduckgo_search',
+                'Search the web using DuckDuckGo API for URL shortening related queries.',
+            )->addProperty(
+                new ToolProperty(
+                    'query',
+                    'string',
+                    'The search query to execute on DuckDuckGo.',
+                    true
+                )
+            )->addProperty(
+                new ToolProperty(
+                    'format',
+                    'string',
+                    'Response format json or xml - default json',
+                    false
+                )
+            )->addProperty(
+                new ToolProperty(
+                    'no_redirect',
+                    'boolean',
+                    'Skip redirects - default true',
+                    false
+                )
+            )->addProperty(
+                new ToolProperty(
+                    'no_html',
+                    'boolean',
+                    'Remove HTML from text - default true',
+                    false
+                )
+            )->addProperty(
+                new ToolProperty(
+                    'skip_disambig',
+                    'boolean',
+                    'Skip disambiguation - default true',
+                    false
+                )
+            )->setCallable(
+                new \App\Neuron\Tools\Search\DuckDuckGoSearchTool()
+            ),
+            
             // ...McpConnector::make([
             //     'command' => 'npx',
             //     'args' => ['-y', '@modelcontextprotocol/server-brave-search'],
             //     'env'=> ['BRAVE_API_KEY' => env('BRAVE_API_KEY')],
             // ])->tools(),
-            ...McpConnector::make([
-                'command' => 'npx',
-                'args' => ['-y', '@modelcontextprotocol/server-duckduckgo'],
-            ])->tools(),
+
+            // Temporarily disable MCP tools to isolate Gemini API issue
+            // TODO: Re-enable after fixing tool parameter validation
+            // ...$this->getMcpTools(),
         ];
+    }
+
+    /**
+     * Safely attempt to create MCP connector tools with fallback handling
+     * 
+     * @param array $config
+     * @return array
+     */
+    protected static function tryMcpConnector(array $config): array
+    {
+        try {
+            return McpConnector::make($config)->tools();
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::warning('MCP Connector failed', [
+                'config' => $config,
+                'error' => $e->getMessage()
+            ]);
+            
+            // Return empty array instead of failing completely
+            return [];
+        }
+    }
+
+    /**
+     * Get available MCP servers with fallback options
+     * 
+     * @return array
+     */
+    protected function getMcpTools(): array
+    {
+        if (!config('mcp.enabled', true)) {
+            return [];
+        }
+        
+        $mcpTools = [];
+        $servers = config('mcp.servers', []);
+        
+        foreach ($servers as $serverName => $serverConfig) {
+            if (!($serverConfig['enabled'] ?? false)) {
+                continue;
+            }
+            
+            try {
+                $tools = self::tryMcpConnector($serverConfig);
+                $mcpTools = array_merge($mcpTools, $tools);
+                
+                if (config('mcp.debug.enabled', false)) {
+                    \Log::info("MCP server '{$serverName}' loaded successfully", [
+                        'tools_count' => count($tools)
+                    ]);
+                }
+            } catch (\Exception $e) {
+                if (config('mcp.error_handling.log_errors', true)) {
+                    \Log::warning("MCP server '{$serverName}' failed to load", [
+                        'error' => $e->getMessage(),
+                        'config' => $serverConfig
+                    ]);
+                }
+                
+                if (!config('mcp.error_handling.continue_on_error', true)) {
+                    throw $e;
+                }
+            }
+        }
+        
+        return $mcpTools;
     }
 }
